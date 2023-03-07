@@ -5,6 +5,10 @@
 }
 
 body {
+  background-image: url(/sprinkles.jpg);
+  background-size: cover;
+  background-position: center center;
+  min-height: 100vh;
   font-family: "poppins", sans-serif;
   margin: 0;
 }
