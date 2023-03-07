@@ -6,9 +6,27 @@
 
 body {
   background-image: url(/sprinkles.jpg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background-size: cover;
   background-position: center center;
   min-height: 100vh;
   font-family: "poppins", sans-serif;
   margin: 0;
+}
+h1 {
+  font-size: 4 rem;
+  margin-top: -10rem;
+}
+
+.coundown-container {
+  display: flex;
+}
+
+.big-text {
+  font-size: 6rem;
+  line-height: 1;
+  margin: 0 2rem;
 }
