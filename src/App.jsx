@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
+import logoImage from "./assets/lexicon-logo.jfif";
 
 const formatWithLeadingZero = (value) => {
   return value < 10 ? `0${value}` : value;
@@ -29,6 +30,7 @@ const CountdownTimer = () => {
               setSeconds(59);
             } else {
               // Timer reached zero, stop the timer
+              // TODO: Play a sound or change the background color
               setIsRunning(false);
             }
           }
@@ -142,13 +144,13 @@ const CountdownTimer = () => {
         <span className="text-4xl m-2">s</span>
         <div className="flex">
           <button
-            className="w-24 text-3xl bg-gray-800 hover:bg-stone-700 text-white font-semibold py-2 border-b-4 border-red-700 hover:border-red-500 rounded m-2"
+            className="w-24 text-3xl bg-gray-900 hover:bg-stone-800 text-white font-semibold py-2 border-b-4 border-red-700 hover:border-red-500 rounded m-2"
             onClick={handleStartStop}
           >
             {isRunning ? "Stop" : "Start"}
           </button>
           <button
-            className="w-24 text-3xl bg-gray-800 hover:bg-stone-700 text-white font-semibold py-2 border-b-4 border-red-700 hover:border-red-500 rounded m-2"
+            className="w-24 text-3xl bg-gray-900 hover:bg-stone-800 text-white font-semibold py-2 border-b-4 border-red-700 hover:border-red-500 rounded m-2"
             onClick={handleReset}
           >
             Reset
@@ -162,6 +164,9 @@ const CountdownTimer = () => {
 function App() {
   return (
     <div className="App">
+      <div className="flex items-center justify-between h-20 bg-gray-900 text-white p-4">
+        <img src={logoImage} alt="Logo" className="h-16 w-auto mr-2" />
+      </div>
       <CountdownTimer />
     </div>
   );
