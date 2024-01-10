@@ -164,8 +164,8 @@ const CountdownTimer = () => {
 function App() {
   return (
     <div className="App">
-      <div className="flex items-center justify-between h-20 bg-gray-900 text-white p-4">
-        <img src={logoImage} alt="Logo" className="h-16 w-auto mr-2" />
+      <div className="fixed top-0 w-full flex items-center justify-between h-28 bg-gray-900 text-white p-4">
+        <img src={logoImage} alt="Logo" className="h-20 w-auto mr-2" />
       </div>
       <CountdownTimer />
     </div>
