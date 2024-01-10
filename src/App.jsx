@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 
+const formatWithLeadingZero = (value) => {
+  return value < 10 ? `0${value}` : value;
+};
+
 const CountdownTimer = () => {
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
@@ -71,33 +75,33 @@ const CountdownTimer = () => {
         <input
           type="number"
           className="w-44 text-9xl text-center border-none outline-none p-2 m-2"
-          value={hours}
+          value={formatWithLeadingZero(hours)}
           onChange={(e) => handleInputChange(e, "hours")}
         />
         <span className="text-4xl m-2">h</span>
         <input
           type="number"
           className="w-44 text-9xl text-center border-none outline-none p-2 m-2"
-          value={minutes}
+          value={formatWithLeadingZero(minutes)}
           onChange={(e) => handleInputChange(e, "minutes")}
         />
         <span className="text-4xl m-2">m</span>
         <input
           type="number"
           className="w-44 text-9xl text-center border-none outline-none p-2 m-2"
-          value={seconds}
+          value={formatWithLeadingZero(seconds)}
           onChange={(e) => handleInputChange(e, "seconds")}
         />
         <span className="text-4xl m-2">s</span>
         <div className="flex">
           <button
-            className="w-24 text-3xl bg-gray-800 hover:bg-stone-700 text-white font-semibold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded m-2"
+            className="w-24 text-3xl bg-gray-800 hover:bg-stone-700 text-white font-semibold py-2 border-b-4 border-red-700 hover:border-red-500 rounded m-2"
             onClick={handleStartStop}
           >
             {isRunning ? "Stop" : "Start"}
           </button>
           <button
-            className="w-24 text-3xl bg-gray-800 hover:bg-stone-700 text-white font-semibold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded m-2"
+            className="w-24 text-3xl bg-gray-800 hover:bg-stone-700 text-white font-semibold py-2 border-b-4 border-red-700 hover:border-red-500 rounded m-2"
             onClick={handleReset}
           >
             Reset
