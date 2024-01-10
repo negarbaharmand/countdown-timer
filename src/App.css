@@ -1,0 +1,35 @@
+.countdown-timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin-top: 50px;
+}
+.timer-input {
+  font-size: 10rem;
+  width: 2em;
+  text-align: center;
+  border: none;
+  outline: none;
+  padding: 5px;
+  margin: 0 5px;
+}
+
+.timer-display {
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 0 5px;
+}
+
+.timer-separator {
+  margin: 0 10px 0 0;
+  font-size: 3rem;
+}
+
+.timer-buttons button {
+  margin: 0 20px;
+  padding: 10px;
+  font-size: 1rem;
+}
