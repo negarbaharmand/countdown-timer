@@ -53,55 +53,37 @@ const CountdownTimer = () => {
   const handleInputChange = (e, unit) => {
     const value = parseInt(e.target.value, 10) || 0;
     const nonNegativeValue = Math.max(0, value);
-    if (value < 0) {
-      switch (unit) {
-        case "hours":
-          setHours(0);
-          break;
-        case "minutes":
-          setMinutes(0);
-          break;
-        case "seconds":
-          setSeconds(0);
-          break;
-        default:
-          break;
-      }
-      return;
-    }
+
     switch (unit) {
       case "hours":
-        setHours(nonNegativeValue);
+        setHours(nonNegativeValue % 100);
+
         break;
       case "minutes":
-        setMinutes(nonNegativeValue);
+        setMinutes(nonNegativeValue % 100);
+
+        if (nonNegativeValue >= 60 && nonNegativeValue < 100) {
+          setHours(Math.floor(nonNegativeValue / 60));
+          setMinutes(nonNegativeValue % 60);
+        } else {
+          setHours(0);
+        }
         break;
       case "seconds":
-        setSeconds(nonNegativeValue);
+        setSeconds(nonNegativeValue % 100);
+
+        if (nonNegativeValue >= 60 && nonNegativeValue < 100) {
+          setMinutes(Math.floor(nonNegativeValue / 60));
+          setSeconds(nonNegativeValue % 60);
+        } else {
+          setMinutes(0);
+        }
         break;
       default:
         break;
     }
-    // Automatically convert seconds to minutes and minutes to hours
-    if (nonNegativeValue >= 60) {
-      switch (unit) {
-        case "seconds":
-          setSeconds(nonNegativeValue % 60);
-          setMinutes(
-            (prevMinutes) => prevMinutes + Math.floor(nonNegativeValue / 60)
-          );
-          break;
-        case "minutes":
-          setMinutes(nonNegativeValue % 60);
-          setHours(
-            (prevHours) => prevHours + Math.floor(nonNegativeValue / 60)
-          );
-          break;
-        default:
-          break;
-      }
-    }
   };
+
   const handleBlur = (e, unit) => {
     // Parse the input value to an integer
     const parsedValue = parseInt(e.target.value, 10);
