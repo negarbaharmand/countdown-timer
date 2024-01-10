@@ -65,34 +65,43 @@ const CountdownTimer = () => {
   };
 
   return (
-    <div className="countdown-timer">
-      <input
-        type="number"
-        className="timer-input"
-        value={hours}
-        onChange={(e) => handleInputChange(e, "hours")}
-      />
-      <span className="timer-separator">h</span>
-      <input
-        type="number"
-        className="timer-input"
-        value={minutes}
-        onChange={(e) => handleInputChange(e, "minutes")}
-      />
-      <span className="timer-separator">m</span>
-      <input
-        type="number"
-        className="timer-input"
-        value={seconds}
-        onChange={(e) => handleInputChange(e, "seconds")}
-      />
-      <span className="timer-separator">s</span>
-
-      <div className="timer-buttons">
-        <button onClick={handleStartStop}>
-          {isRunning ? "Stop" : "Start"}
-        </button>
-        <button onClick={handleReset}>Reset</button>
+    <div className="flex items-center justify-center h-screen text-center">
+      <div className="flex items-center justify-center text-4xl mt-8">
+        <input
+          type="number"
+          className="w-16 text-2xl text-center border-none outline-none p-2 m-2"
+          value={hours}
+          onChange={(e) => handleInputChange(e, "hours")}
+        />
+        <span className="text-2xl m-2">h</span>
+        <input
+          type="number"
+          className="w-16 text-2xl text-center border-none outline-none p-2 m-2"
+          value={minutes}
+          onChange={(e) => handleInputChange(e, "minutes")}
+        />
+        <span className="text-2xl m-2">m</span>
+        <input
+          type="number"
+          className="w-16 text-2xl text-center border-none outline-none p-2 m-2"
+          value={seconds}
+          onChange={(e) => handleInputChange(e, "seconds")}
+        />
+        <span className="text-2xl m-2">s</span>
+        <div className="flex">
+          <button
+            className="p-2 m-2 text-lg bg-blue-500 text-white rounded"
+            onClick={handleStartStop}
+          >
+            {isRunning ? "Stop" : "Start"}
+          </button>
+          <button
+            className="p-2 m-2 text-lg bg-red-500 text-white rounded"
+            onClick={handleReset}
+          >
+            Reset
+          </button>
+        </div>
       </div>
     </div>
   );
