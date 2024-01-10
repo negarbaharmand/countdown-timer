@@ -53,7 +53,22 @@ const CountdownTimer = () => {
   const handleInputChange = (e, unit) => {
     const value = parseInt(e.target.value, 10) || 0;
     const nonNegativeValue = Math.max(0, value);
-
+    if (value < 0) {
+      switch (unit) {
+        case "hours":
+          setHours(0);
+          break;
+        case "minutes":
+          setMinutes(0);
+          break;
+        case "seconds":
+          setSeconds(0);
+          break;
+        default:
+          break;
+      }
+      return;
+    }
     switch (unit) {
       case "hours":
         setHours(nonNegativeValue);
@@ -67,6 +82,53 @@ const CountdownTimer = () => {
       default:
         break;
     }
+    // Automatically convert seconds to minutes and minutes to hours
+    if (nonNegativeValue >= 60) {
+      switch (unit) {
+        case "seconds":
+          setSeconds(nonNegativeValue % 60);
+          setMinutes(
+            (prevMinutes) => prevMinutes + Math.floor(nonNegativeValue / 60)
+          );
+          break;
+        case "minutes":
+          setMinutes(nonNegativeValue % 60);
+          setHours(
+            (prevHours) => prevHours + Math.floor(nonNegativeValue / 60)
+          );
+          break;
+        default:
+          break;
+      }
+    }
+  };
+  const handleBlur = (e, unit) => {
+    // Parse the input value to an integer
+    const parsedValue = parseInt(e.target.value, 10);
+
+    // Ensure it's a non-negative value
+    const nonNegativeValue = Math.max(0, parsedValue);
+
+    // Set the state with the parsed integer value
+    switch (unit) {
+      case "hours":
+        setHours(nonNegativeValue);
+        break;
+      case "minutes":
+        setMinutes(nonNegativeValue);
+        break;
+      case "seconds":
+        setSeconds(nonNegativeValue);
+        break;
+      default:
+        break;
+    }
+
+    // Format the value with leading zeros before setting the state
+    const formattedValue = formatWithLeadingZero(nonNegativeValue);
+
+    // Update the input field with the formatted value
+    e.target.value = formattedValue;
   };
 
   return (
@@ -77,6 +139,7 @@ const CountdownTimer = () => {
           className="w-44 text-9xl text-center border-none outline-none p-2 m-2"
           value={formatWithLeadingZero(hours)}
           onChange={(e) => handleInputChange(e, "hours")}
+          onBlur={(e) => handleBlur(e, "hours")}
         />
         <span className="text-4xl m-2">h</span>
         <input
@@ -84,6 +147,7 @@ const CountdownTimer = () => {
           className="w-44 text-9xl text-center border-none outline-none p-2 m-2"
           value={formatWithLeadingZero(minutes)}
           onChange={(e) => handleInputChange(e, "minutes")}
+          onBlur={(e) => handleBlur(e, "minutes")}
         />
         <span className="text-4xl m-2">m</span>
         <input
@@ -91,6 +155,7 @@ const CountdownTimer = () => {
           className="w-44 text-9xl text-center border-none outline-none p-2 m-2"
           value={formatWithLeadingZero(seconds)}
           onChange={(e) => handleInputChange(e, "seconds")}
+          onBlur={(e) => handleBlur(e, "seconds")}
         />
         <span className="text-4xl m-2">s</span>
         <div className="flex">
