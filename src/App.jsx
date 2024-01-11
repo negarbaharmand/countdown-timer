@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import useSound from "use-sound";
 import "./App.css";
 import logoImage from "./assets/lexicon-logo.jfif";
-import useSound from "use-sound";
 import notifySound from "./assets/notify.mp3";
+import toast, { Toaster } from "react-hot-toast";
 
 const formatWithLeadingZero = (value) => {
   return value < 10 ? `0${value}` : value;
@@ -13,7 +14,7 @@ const CountdownTimer = () => {
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const [playSound] = useSound(notifySound, { volume: 0.8 }); // 80% of the original volume
+  const [playSound] = useSound(notifySound, { volume: 0.9 }); // 90% of the original volume
 
   useEffect(() => {
     let interval;
@@ -33,8 +34,31 @@ const CountdownTimer = () => {
               setSeconds(59);
             } else {
               // Timer reached zero, stop the timer
-              playSound();
               setIsRunning(false);
+              playSound();
+              toast("Time's up! 🎉", {
+                duration: 10000,
+                position: "top-center",
+
+                // Styling
+                style: {},
+                className: "",
+
+                // Custom Icon
+                icon: "🔔",
+
+                // Change colors of success/error/loading icon
+                iconTheme: {
+                  primary: "#000",
+                  secondary: "#fff",
+                },
+
+                // Aria
+                ariaProps: {
+                  role: "status",
+                  "aria-live": "polite",
+                },
+              });
             }
           }
         }
@@ -119,48 +143,50 @@ const CountdownTimer = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen text-center">
-      <div className="flex items-center justify-center text-4xl mt-8">
-        <input
-          type="number"
-          className="w-44 text-9xl text-center border-none outline-none p-2 m-2"
-          value={formatWithLeadingZero(hours)}
-          onChange={(e) => handleInputChange(e, "hours")}
-          onBlur={(e) => handleBlur(e, "hours")}
-        />
-        <span className="text-4xl m-2">h</span>
-        <input
-          type="number"
-          className="w-44 text-9xl text-center border-none outline-none p-2 m-2"
-          value={formatWithLeadingZero(minutes)}
-          onChange={(e) => handleInputChange(e, "minutes")}
-          onBlur={(e) => handleBlur(e, "minutes")}
-        />
-        <span className="text-4xl m-2">m</span>
-        <input
-          type="number"
-          className="w-44 text-9xl text-center border-none outline-none p-2 m-2"
-          value={formatWithLeadingZero(seconds)}
-          onChange={(e) => handleInputChange(e, "seconds")}
-          onBlur={(e) => handleBlur(e, "seconds")}
-        />
-        <span className="text-4xl m-2">s</span>
-        <div className="flex">
-          <button
-            className="w-24 text-3xl bg-gray-900 hover:bg-stone-800 text-white font-semibold py-2 border-b-4 border-red-700 hover:border-red-500 rounded m-2"
-            onClick={handleStartStop}
-          >
-            {isRunning ? "Stop" : "Start"}
-          </button>
-          <button
-            className="w-24 text-3xl bg-gray-900 hover:bg-stone-800 text-white font-semibold py-2 border-b-4 border-red-700 hover:border-red-500 rounded m-2"
-            onClick={handleReset}
-          >
-            Reset
-          </button>
+    <>
+      <div className="flex items-center justify-center h-screen text-center">
+        <div className="flex items-center justify-center text-4xl mt-8">
+          <input
+            type="number"
+            className="w-44 text-9xl text-center border-none outline-none p-2 m-2"
+            value={formatWithLeadingZero(hours)}
+            onChange={(e) => handleInputChange(e, "hours")}
+            onBlur={(e) => handleBlur(e, "hours")}
+          />
+          <span className="text-4xl m-2">h</span>
+          <input
+            type="number"
+            className="w-44 text-9xl text-center border-none outline-none p-2 m-2"
+            value={formatWithLeadingZero(minutes)}
+            onChange={(e) => handleInputChange(e, "minutes")}
+            onBlur={(e) => handleBlur(e, "minutes")}
+          />
+          <span className="text-4xl m-2">m</span>
+          <input
+            type="number"
+            className="w-44 text-9xl text-center border-none outline-none p-2 m-2"
+            value={formatWithLeadingZero(seconds)}
+            onChange={(e) => handleInputChange(e, "seconds")}
+            onBlur={(e) => handleBlur(e, "seconds")}
+          />
+          <span className="text-4xl m-2">s</span>
+          <div className="flex">
+            <button
+              className="w-24 text-3xl bg-gray-900 hover:bg-stone-800 text-white font-semibold py-2 border-b-4 border-red-700 hover:border-red-500 rounded m-2"
+              onClick={handleStartStop}
+            >
+              {isRunning ? "Stop" : "Start"}
+            </button>
+            <button
+              className="w-24 text-3xl bg-gray-900 hover:bg-stone-800 text-white font-semibold py-2 border-b-4 border-red-700 hover:border-red-500 rounded m-2"
+              onClick={handleReset}
+            >
+              Reset
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -171,6 +197,7 @@ function App() {
         <img src={logoImage} alt="Logo" className="h-20 w-auto mr-2" />
       </div>
       <CountdownTimer />
+      <Toaster />
     </div>
   );
 }
