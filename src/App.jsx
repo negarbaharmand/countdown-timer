@@ -20,6 +20,7 @@ const CountdownTimer = () => {
     let interval;
 
     if (isRunning) {
+      document.title = `${hours}:${minutes}:${seconds}`;
       interval = setInterval(() => {
         if (seconds > 0) {
           setSeconds(seconds - 1);
@@ -35,6 +36,7 @@ const CountdownTimer = () => {
             } else {
               // Timer reached zero, stop the timer
               setIsRunning(false);
+              document.title = "Time's up!";
               playSound();
               toast("Time's up! 🎉", {
                 duration: 10000,
@@ -79,6 +81,7 @@ const CountdownTimer = () => {
     setHours(0);
     setMinutes(0);
     setSeconds(0);
+    document.title = `Countdown-Timer`;
   };
 
   const handleInputChange = (e, unit) => {
