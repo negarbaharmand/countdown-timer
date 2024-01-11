@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import useSound from "use-sound";
 import "./App.css";
 import logoImage from "./assets/lexicon-logo.jfif";
 import notifySound from "./assets/notify.mp3";
-import toast, { Toaster } from "react-hot-toast";
 
 const formatWithLeadingZero = (value) => {
   return value < 10 ? `0${value}` : value;
@@ -41,7 +41,9 @@ const CountdownTimer = () => {
                 position: "top-center",
 
                 // Styling
-                style: {},
+                style: {
+                  marginTop: "20px",
+                },
                 className: "",
 
                 // Custom Icon
