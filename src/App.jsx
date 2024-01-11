@@ -153,7 +153,7 @@ const CountdownTimer = () => {
         <div className="flex items-center justify-center text-4xl mt-8">
           <input
             type="number"
-            className="w-44 text-9xl text-center border-none outline-none p-2 m-2"
+            className="w-44 text-9xl text-center border-none outline-none m-2"
             value={formatWithLeadingZero(hours)}
             onChange={(e) => handleInputChange(e, "hours")}
             onBlur={(e) => handleBlur(e, "hours")}
@@ -161,7 +161,7 @@ const CountdownTimer = () => {
           <span className="text-4xl m-2">h</span>
           <input
             type="number"
-            className="w-44 text-9xl text-center border-none outline-none p-2 m-2"
+            className="w-44 text-9xl text-center border-none outline-none m-2"
             value={formatWithLeadingZero(minutes)}
             onChange={(e) => handleInputChange(e, "minutes")}
             onBlur={(e) => handleBlur(e, "minutes")}
@@ -169,7 +169,7 @@ const CountdownTimer = () => {
           <span className="text-4xl m-2">m</span>
           <input
             type="number"
-            className="w-44 text-9xl text-center border-none outline-none p-2 m-2"
+            className="w-44 text-9xl text-center border-none outline-none m-2"
             value={formatWithLeadingZero(seconds)}
             onChange={(e) => handleInputChange(e, "seconds")}
             onBlur={(e) => handleBlur(e, "seconds")}
