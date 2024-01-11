@@ -6,7 +6,7 @@ import logoImage from "./assets/lexicon-logo.jfif";
 import notifySound from "./assets/notify.mp3";
 
 const formatWithLeadingZero = (value) => {
-  return value < 10 ? `0${value}` : value;
+  return value < 10 ? `0${value}` : `${value}`;
 };
 
 const CountdownTimer = () => {
