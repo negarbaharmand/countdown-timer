@@ -39,24 +39,20 @@ const CountdownTimer = () => {
               document.title = "Time's up!";
               playSound();
               toast("Time's up! 🎉", {
-                duration: 10000,
+                duration: 5000,
                 position: "top-center",
-
                 // Styling
                 style: {
                   marginTop: "20px",
                 },
                 className: "",
-
                 // Custom Icon
                 icon: "🔔",
-
                 // Change colors of success/error/loading icon
                 iconTheme: {
                   primary: "#000",
                   secondary: "#fff",
                 },
-
                 // Aria
                 ariaProps: {
                   role: "status",
@@ -84,96 +80,64 @@ const CountdownTimer = () => {
     document.title = `Countdown-Timer`;
   };
 
-  const handleInputChange = (e, unit) => {
-    const value = parseInt(e.target.value, 10) || 0;
-    const nonNegativeValue = Math.max(0, value);
+  const handleSelectChange = (value, unit) => {
+    const intValue = parseInt(value, 10) || 0;
+    const nonNegativeValue = Math.max(0, intValue);
 
     switch (unit) {
       case "hours":
         setHours(nonNegativeValue % 100);
-
         break;
       case "minutes":
         setMinutes(nonNegativeValue % 100);
-
-        if (nonNegativeValue >= 60 && nonNegativeValue < 100) {
-          setHours(Math.floor(nonNegativeValue / 60));
-          setMinutes(nonNegativeValue % 60);
-        } else {
-          setHours(0);
-        }
         break;
       case "seconds":
         setSeconds(nonNegativeValue % 100);
-
-        if (nonNegativeValue >= 60 && nonNegativeValue < 100) {
-          setMinutes(Math.floor(nonNegativeValue / 60));
-          setSeconds(nonNegativeValue % 60);
-        } else {
-          setMinutes(0);
-        }
         break;
       default:
         break;
     }
-  };
-
-  const handleBlur = (e, unit) => {
-    // Parse the input value to an integer
-    const parsedValue = parseInt(e.target.value, 10);
-
-    // Ensure it's a non-negative value
-    const nonNegativeValue = Math.max(0, parsedValue);
-
-    // Set the state with the parsed integer value
-    switch (unit) {
-      case "hours":
-        setHours(nonNegativeValue);
-        break;
-      case "minutes":
-        setMinutes(nonNegativeValue);
-        break;
-      case "seconds":
-        setSeconds(nonNegativeValue);
-        break;
-      default:
-        break;
-    }
-
-    // Format the value with leading zeros before setting the state
-    const formattedValue = formatWithLeadingZero(nonNegativeValue);
-
-    // Update the input field with the formatted value
-    e.target.value = formattedValue;
   };
 
   return (
     <>
       <div className="flex items-center justify-center h-screen text-center">
         <div className="flex items-center justify-center text-4xl mt-8">
-          <input
-            type="number"
-            className="w-44 text-9xl text-center border-none outline-none m-2"
-            value={formatWithLeadingZero(hours)}
-            onChange={(e) => handleInputChange(e, "hours")}
-            onBlur={(e) => handleBlur(e, "hours")}
-          />
+          <select
+            className="w-40 text-9xl text-center border-none outline-none m-2 origin-bottom bottom-0 transform"
+            value={hours}
+            onChange={(e) => handleSelectChange(e.target.value, "hours")}
+          >
+            {Array.from({ length: 100 }, (_, i) => i).map((hour) => (
+              <option key={hour} value={hour} className="text-sm">
+                {formatWithLeadingZero(hour)}
+              </option>
+            ))}
+          </select>
           <span className="text-4xl m-2">h</span>
-          <input
-            type="number"
-            className="w-44 text-9xl text-center border-none outline-none m-2"
-            value={formatWithLeadingZero(minutes)}
-            onChange={(e) => handleInputChange(e, "minutes")}
-            onBlur={(e) => handleBlur(e, "minutes")}
-          />
+          <select
+            className="w-40 text-9xl text-center border-none outline-none m-2"
+            value={minutes}
+            onChange={(e) => handleSelectChange(e.target.value, "minutes")}
+          >
+            {Array.from({ length: 60 }, (_, i) => i).map((minute) => (
+              <option key={minute} value={minute}>
+                {formatWithLeadingZero(minute)}
+              </option>
+            ))}
+          </select>
           <span className="text-4xl m-2">m</span>
-          <input
-            type="number"
-            className="w-44 text-9xl text-center border-none outline-none m-2"
-            value={formatWithLeadingZero(seconds)}
-            onChange={(e) => handleInputChange(e, "seconds")}
-            onBlur={(e) => handleBlur(e, "seconds")}
-          />
+          <select
+            className="w-40 text-9xl text-center border-none outline-none m-2"
+            value={seconds}
+            onChange={(e) => handleSelectChange(e.target.value, "seconds")}
+          >
+            {Array.from({ length: 60 }, (_, i) => i).map((second) => (
+              <option key={second} value={second}>
+                {formatWithLeadingZero(second)}
+              </option>
+            ))}
+          </select>
           <span className="text-4xl m-2">s</span>
           <div className="flex">
             <button
