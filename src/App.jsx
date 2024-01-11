@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import logoImage from "./assets/lexicon-logo.jfif";
+import useSound from "use-sound";
+import notifySound from "./assets/notify.mp3";
 
 const formatWithLeadingZero = (value) => {
   return value < 10 ? `0${value}` : value;
@@ -11,6 +13,7 @@ const CountdownTimer = () => {
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+  const [playSound] = useSound(notifySound, { volume: 0.8 }); // 80% of the original volume
 
   useEffect(() => {
     let interval;
@@ -30,7 +33,7 @@ const CountdownTimer = () => {
               setSeconds(59);
             } else {
               // Timer reached zero, stop the timer
-              // TODO: Play a sound or change the background color
+              playSound();
               setIsRunning(false);
             }
           }
@@ -39,7 +42,7 @@ const CountdownTimer = () => {
     }
 
     return () => clearInterval(interval);
-  }, [isRunning, hours, minutes, seconds]);
+  }, [isRunning, hours, minutes, seconds, playSound]);
 
   const handleStartStop = () => {
     setIsRunning(!isRunning);
