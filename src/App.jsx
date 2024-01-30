@@ -73,6 +73,22 @@ const CountdownTimer = () => {
   }, [isRunning, hours, minutes, seconds, playSound]);
 
   const handleStartStop = () => {
+    if (!isRunning) {
+      // Convert extra seconds and add to minutes
+      if (seconds >= 60) {
+        const additionalMinutes = Math.floor(seconds / 60);
+        setMinutes((prevMinutes) => prevMinutes + additionalMinutes);
+        setSeconds((prevSeconds) => prevSeconds % 60);
+      }
+
+      // Convert extra minutes and add to hours
+      if (minutes >= 60) {
+        const additionalHours = Math.floor(minutes / 60);
+        setHours((prevHours) => prevHours + additionalHours);
+        setMinutes((prevMinutes) => prevMinutes % 60);
+      }
+    }
+
     setIsRunning(!isRunning);
   };
 
